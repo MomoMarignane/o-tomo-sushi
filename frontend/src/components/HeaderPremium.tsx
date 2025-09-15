@@ -31,31 +31,31 @@ const HeaderPremium: React.FC<HeaderPremiumProps> = ({ cartCount = 0, onCartClic
     <motion.header 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
         isScrolled 
-          ? 'bg-white/80 backdrop-blur-xl border-b border-gray-100 py-4' 
-          : 'bg-transparent py-6'
+          ? 'bg-white/80 backdrop-blur-xl border-b border-gray-100 py-3 sm:py-4' 
+          : 'bg-transparent py-4 sm:py-6'
       }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
-      <div className="container-max">
+      <div className="container-max px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           {/* Logo épuré */}
           <motion.div 
-            className="flex items-center space-x-3"
+            className="flex items-center space-x-2 sm:space-x-3"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">Ô</span>
+            <div className="w-7 h-7 sm:w-8 sm:h-8 bg-black rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-xs sm:text-sm">Ô</span>
             </div>
             <div>
-              <h1 className="font-display text-xl font-bold text-gray-900">TOMO</h1>
+              <h1 className="font-display text-lg sm:text-xl font-bold text-gray-900">TOMO</h1>
             </div>
           </motion.div>
 
           {/* Navigation épurée */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden md:flex items-center space-x-6 lg:space-x-8">
             {navItems.map((item, index) => (
               <motion.a
                 key={item.label}
@@ -76,7 +76,7 @@ const HeaderPremium: React.FC<HeaderPremiumProps> = ({ cartCount = 0, onCartClic
           </nav>
 
           {/* Actions épurées */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2 sm:space-x-4">
             <motion.button 
               className="hidden md:block text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors duration-300"
               initial={{ opacity: 0 }}
@@ -92,9 +92,9 @@ const HeaderPremium: React.FC<HeaderPremiumProps> = ({ cartCount = 0, onCartClic
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <ShoppingBag className="w-5 h-5" />
+              <ShoppingBag className="w-4 h-4 sm:w-5 sm:h-5" />
               {cartCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-gray-900 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-medium">
+                <span className="absolute -top-1 -right-1 bg-gray-900 text-white text-xs rounded-full w-4 h-4 sm:w-5 sm:h-5 flex items-center justify-center font-medium">
                   {cartCount}
                 </span>
               )}
@@ -111,9 +111,9 @@ const HeaderPremium: React.FC<HeaderPremiumProps> = ({ cartCount = 0, onCartClic
                 transition={{ duration: 0.2 }}
               >
                 {isMobileMenuOpen ? (
-                  <X className="w-5 h-5" />
+                  <X className="w-4 h-4 sm:w-5 sm:h-5" />
                 ) : (
-                  <Menu className="w-5 h-5" />
+                  <Menu className="w-4 h-4 sm:w-5 sm:h-5" />
                 )}
               </motion.div>
             </motion.button>
@@ -130,13 +130,13 @@ const HeaderPremium: React.FC<HeaderPremiumProps> = ({ cartCount = 0, onCartClic
           }}
           transition={{ duration: 0.3 }}
         >
-          <div className="pt-4 pb-6 border-t border-gray-100 mt-4">
+          <div className="pt-4 pb-6 border-t border-gray-100 mt-4 px-4 sm:px-6">
             <nav className="flex flex-col space-y-4">
               {navItems.map((item) => (
                 <a
                   key={item.label}
                   href={item.href}
-                  className={`text-sm font-medium transition-colors duration-200 ${
+                  className={`text-base sm:text-sm font-medium transition-colors duration-200 py-2 ${
                     item.active 
                       ? 'text-gray-900' 
                       : 'text-gray-600 hover:text-gray-900'
@@ -146,7 +146,7 @@ const HeaderPremium: React.FC<HeaderPremiumProps> = ({ cartCount = 0, onCartClic
                   {item.label}
                 </a>
               ))}
-              <button className="text-left text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors duration-200">
+              <button className="text-left text-base sm:text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors duration-200 py-2">
                 Réserver
               </button>
             </nav>

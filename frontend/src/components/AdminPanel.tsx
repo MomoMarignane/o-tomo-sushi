@@ -56,20 +56,21 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ isOpen, onClose, user, onLogout
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          className="fixed inset-0 bg-black/50 z-50 flex"
+          className="fixed inset-0 bg-black/50 z-50"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={onClose}
         >
-          <motion.div
-            className="bg-white w-80 h-full shadow-2xl overflow-hidden flex flex-col"
-            initial={{ x: -320 }}
-            animate={{ x: 0 }}
-            exit={{ x: -320 }}
-            transition={{ type: "spring", damping: 20, stiffness: 200 }}
-            onClick={(e: React.MouseEvent) => e.stopPropagation()}
-          >
+          <div className="flex h-full">
+            <motion.div
+              className="bg-white w-80 h-full shadow-2xl overflow-hidden flex flex-col"
+              initial={{ x: -320 }}
+              animate={{ x: 0 }}
+              exit={{ x: -320 }}
+              transition={{ type: "spring", damping: 20, stiffness: 200 }}
+              onClick={(e: React.MouseEvent) => e.stopPropagation()}
+            >
             {/* Header Admin */}
             <div className="bg-gray-900 text-white p-6">
               <div className="flex items-center justify-between mb-4">
@@ -154,11 +155,13 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ isOpen, onClose, user, onLogout
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 50 }}
             transition={{ delay: 0.1 }}
+            onClick={(e: React.MouseEvent) => e.stopPropagation()}
           >
             <div className="p-8">
               <AdminContent activeTab={activeTab} user={user} />
             </div>
           </motion.div>
+          </div>
         </motion.div>
       )}
     </AnimatePresence>

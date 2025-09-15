@@ -8,7 +8,7 @@ interface HeroPremiumProps {
 
 const HeroPremium: React.FC<HeroPremiumProps> = ({ onOrderClick }) => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-50 to-white overflow-hidden px-4 sm:px-6 lg:px-8">
+    <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-50 to-white overflow-hidden px-4 sm:px-6 lg:px-8 pt-28 sm:pt-36">
       {/* Geometric Background Elements */}
       <div className="absolute inset-0">
         <motion.div 

@@ -1,14 +1,45 @@
 import { useState } from 'react';
-import Header from './components/Header';
-import Hero from './components/Hero';
-import MenuSection from './components/MenuSection';
+import HeaderPremium from './components/HeaderPremium';
+import HeroPremium from './components/HeroPremium';
+import MenuModern from './components/MenuModern';
 import Cart from './components/Cart';
 import Footer from './components/Footer';
-import type { CartItem, MenuItem } from './types';
+import PremiumBanner from './components/PremiumBanner';
+import AdminPanel from './components/AdminPanel';
+import AdminLogin from './components/AdminLogin';
+import type { CartItem, MenuItem, BannerMessage, AdminUser } from './types';
 
 function App() {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isAdminPanelOpen, setIsAdminPanelOpen] = useState(false);
+  const [isAdminLoginOpen, setIsAdminLoginOpen] = useState(false);
+  const [currentUser, setCurrentUser] = useState<AdminUser | null>(null);
+
+  // Messages de bannières d'exemple
+  const bannerMessages: BannerMessage[] = [
+    {
+      id: '1',
+      text: '🍱 Nouveau menu automne disponible ! Découvrez nos spécialités saisonnières avec des ingrédients frais',
+      type: 'permanent',
+      active: true,
+      priority: 80
+    },
+    {
+      id: '2',
+      text: '🎉 PROMO WEEKEND : Livraison gratuite pour toute commande supérieure à 30€ !',
+      type: 'permanent',
+      active: true,
+      priority: 95
+    },
+    {
+      id: '3',
+      text: '⭐ Découvrez notre carte des vins japonais et sakés premium sélectionnés par notre sommelier',
+      type: 'permanent',
+      active: true,
+      priority: 60
+    }
+  ];
 
   const addToCart = (item: MenuItem) => {
     setCart(currentCart => {
@@ -23,6 +54,23 @@ function App() {
       } else {
         return [...currentCart, { ...item, quantity: 1 }];
       }
+    });
+  };
+
+  const decrementFromCart = (itemId: string) => {
+    setCart(currentCart => {
+      const existingItem = currentCart.find(item => item.id === itemId);
+      if (!existingItem) return currentCart;
+      
+      if (existingItem.quantity <= 1) {
+        return currentCart.filter(item => item.id !== itemId);
+      }
+      
+      return currentCart.map(item =>
+        item.id === itemId
+          ? { ...item, quantity: item.quantity - 1 }
+          : item
+      );
     });
   };
 
@@ -48,20 +96,45 @@ function App() {
     alert('Fonctionnalité de commande à implémenter avec le backend');
   };
 
-  const cartItemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const handleAdminLogin = (user: AdminUser) => {
+    setCurrentUser(user);
+    setIsAdminLoginOpen(false);
+    setIsAdminPanelOpen(true);
+  };
+
+  const handleAdminLogout = () => {
+    setCurrentUser(null);
+    setIsAdminPanelOpen(false);
+  };
 
   return (
-    <div className="min-h-screen bg-white">
-      <Header />
+    <div className="min-h-screen bg-gray-50">
+      {/* Banner premium */}
+      <PremiumBanner 
+        messages={bannerMessages}
+        onDismiss={(messageId: string) => console.log('Message dismissed:', messageId)}
+      />
       
+      {/* Header avec navigation */}
+      <HeaderPremium 
+        cartCount={cart.reduce((sum, item) => sum + item.quantity, 0)}
+        onCartClick={() => setIsCartOpen(true)}
+        onAdminClick={() => setIsAdminLoginOpen(true)}
+      />
+      
+      {/* Contenu principal */}
       <main>
-        <Hero />
-        <MenuSection onAddToCart={addToCart} cart={cart} />
+        <HeroPremium />
+        <MenuModern 
+          onAddToCart={addToCart} 
+          onRemoveFromCart={(item) => decrementFromCart(item.id)}
+        />
       </main>
-
+      
+      {/* Footer */}
       <Footer />
 
-      {/* Cart */}
+      {/* Cart Sidebar */}
       <Cart
         isOpen={isCartOpen}
         onClose={() => setIsCartOpen(false)}
@@ -71,22 +144,21 @@ function App() {
         onCheckout={handleCheckout}
       />
 
-      {/* Floating cart button */}
-      {cartItemCount > 0 && (
-        <button
-          onClick={() => setIsCartOpen(true)}
-          className="fixed bottom-6 right-6 bg-primary-600 hover:bg-primary-700 text-white rounded-full p-4 shadow-lg transition-all duration-300 z-40"
-        >
-          <div className="relative">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4m-2.4 4L7 13m0 0l-1.35 4H5m2-4h10m0 0l1.35 4H19" />
-            </svg>
-            <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 text-xs flex items-center justify-center">
-              {cartItemCount}
-            </span>
-          </div>
-        </button>
+      {/* Admin Login Modal */}
+      {isAdminLoginOpen && (
+        <AdminLogin
+          onClose={() => setIsAdminLoginOpen(false)}
+          onLogin={handleAdminLogin}
+        />
       )}
+
+      {/* Admin Panel */}
+      <AdminPanel
+        isOpen={isAdminPanelOpen}
+        onClose={() => setIsAdminPanelOpen(false)}
+        user={currentUser}
+        onLogout={handleAdminLogout}
+      />
     </div>
   );
 }

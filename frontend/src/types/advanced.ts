@@ -1,4 +1,8 @@
-// Types pour le restaurant
+// =====================================
+// TYPES PRINCIPAUX POUR Ô TOMO SUSHI
+// =====================================
+
+// Types de base pour les produits
 export interface MenuItem {
   id: string;
   name: string;
@@ -9,9 +13,9 @@ export interface MenuItem {
   available: boolean;
   allergens?: string[];
   popular?: boolean;
-  preparationTime?: number; // en minutes
-  kitchenName?: string; // nom différent pour cuisine
-  barName?: string; // nom différent pour bar
+  preparationTime?: number;
+  kitchenName?: string;
+  barName?: string;
   options?: ProductOption[];
   ingredients?: string[];
   nutritionalInfo?: NutritionalInfo;
@@ -19,7 +23,6 @@ export interface MenuItem {
   printerAssignment?: PrinterAssignment[];
 }
 
-// Informations nutritionnelles
 export interface NutritionalInfo {
   calories?: number;
   proteins?: number;
@@ -28,15 +31,13 @@ export interface NutritionalInfo {
   fiber?: number;
 }
 
-// Assignation d'imprimantes
 export interface PrinterAssignment {
   printerId: string;
   printerName: string;
-  displayName: string; // nom affiché sur cette imprimante
-  delayMinutes: number; // délai spécifique pour ce poste
+  displayName: string;
+  delayMinutes: number;
 }
 
-// Options pour les produits (ex: taille, accompagnements)
 export interface ProductOption {
   id: string;
   name: string;
@@ -59,29 +60,28 @@ export interface Category {
   color?: string;
 }
 
-// Allergènes
 export interface Allergen {
   id: string;
   name: string;
   icon: string;
 }
 
-// Messages pour les bandeaux défilants
+// Messages et bannières
 export interface BannerMessage {
   id: string;
   text: string;
   type: 'permanent' | 'temporary' | 'daily-special' | 'holiday';
   active: boolean;
-  priority: number; // 1-100, plus élevé = plus prioritaire
+  priority: number;
   startDate?: Date;
   endDate?: Date;
-  image?: string; // pour les plats du jour
+  image?: string;
   imageAlt?: string;
-  displayDuration?: number; // durée d'affichage en secondes
+  displayDuration?: number;
   targetAudience?: 'all' | 'customers' | 'staff';
 }
 
-// Configuration générale du site
+// Configuration générale
 export interface SiteSettings {
   restaurantInfo: RestaurantInfo;
   businessHours: OpeningHours;
@@ -131,10 +131,10 @@ export interface OrderingSettings {
   allowOrderComments: boolean;
   allowScheduledOrders: boolean;
   maxGuestsPerOrder: number;
-  orderModificationDeadline: number; // minutes before pickup
+  orderModificationDeadline: number;
 }
 
-// Gestion des créneaux horaires avancée
+// Gestion des créneaux et livraisons
 export interface TimeSlot {
   id: string;
   startTime: string;
@@ -142,14 +142,13 @@ export interface TimeSlot {
   maxOrders: number;
   currentOrders: number;
   type: 'pickup' | 'delivery';
-  zones?: string[]; // pour livraison
-  preparationBuffer: number; // temps de préparation en minutes
+  zones?: string[];
+  preparationBuffer: number;
   isActive: boolean;
-  dayOfWeek?: number[]; // 0-6, dimanche = 0
-  specialDates?: Date[]; // dates spéciales
+  dayOfWeek?: number[];
+  specialDates?: Date[];
 }
 
-// Zones de livraison détaillées  
 export interface DeliveryZone {
   id: string;
   name: string;
@@ -158,9 +157,9 @@ export interface DeliveryZone {
   active: boolean;
   deliverySlots?: TimeSlot[];
   minOrderAmount?: number;
-  maxDeliveryTime: number; // en minutes
+  maxDeliveryTime: number;
   description?: string;
-  color?: string; // pour la carte
+  color?: string;
 }
 
 export interface DeliverySettings {
@@ -172,67 +171,7 @@ export interface DeliverySettings {
   allowDeliveryScheduling: boolean;
 }
 
-export interface CartItem extends MenuItem {
-  quantity: number;
-  selectedOptions?: SelectedOption[];
-  comment?: string;
-  guestName?: string; // pour commandes multi-convives
-}
-
-export interface SelectedOption {
-  optionId: string;
-  choiceIds: string[];
-  customValue?: string;
-}
-
-export interface DeliveryZone {
-  id: string;
-  name: string;
-  price: number;
-  coordinates: [number, number][];
-  active: boolean;
-  deliverySlots?: TimeSlot[];
-}
-
-export interface TimeSlot {
-  id: string;
-  startTime: string;
-  endTime: string;
-  maxOrders: number;
-  currentOrders: number;
-  type: 'pickup' | 'delivery';
-  zones?: string[]; // pour livraison
-}
-
-export interface RestaurantSettings {
-  name: string;
-  address: string;
-  phone: string;
-  email: string;
-  description: string;
-  hours: OpeningHours;
-  socialLinks: SocialLinks;
-  gpsCoordinates: [number, number];
-  theForkUrl?: string;
-  menuPdfUrl?: string;
-  bannerMessages: BannerMessage[];
-}
-
-export interface OpeningHours {
-  [key: string]: {
-    open: string;
-    close: string;
-    closed: boolean;
-  };
-}
-
-export interface SocialLinks {
-  facebook?: string;
-  instagram?: string;
-  google?: string;
-}
-
-// Système d'impression avancé
+// Système d'impression
 export interface PrintingSettings {
   printers: Printer[];
   defaultFontSize: number;
@@ -246,13 +185,13 @@ export interface PrintingSettings {
 export interface Printer {
   id: string;
   name: string;
-  location: string; // 'kitchen' | 'bar' | 'reception'
+  location: string;
   ipAddress?: string;
   isActive: boolean;
-  defaultDelay: number; // délai par défaut en minutes
+  defaultDelay: number;
 }
 
-// Ancienne définition supprimée, utiliser la nouvelle ci-dessus
+// Gestion des clients
 export interface Customer {
   id: string;
   firstName: string;
@@ -265,12 +204,12 @@ export interface Customer {
   lastOrderDate?: Date;
   totalOrders: number;
   totalSpent: number;
-  notes?: string; // notes du personnel
+  notes?: string;
   allergies?: string[];
   preferences?: string[];
   loyaltyPoints?: number;
   status: 'active' | 'inactive' | 'blocked';
-  orderHistory: Order[];
+  orderHistory: string[]; // IDs des commandes
 }
 
 export interface Address {
@@ -281,12 +220,94 @@ export interface Address {
   deliveryInstructions?: string;
 }
 
+// Types pour les commandes
+export interface CartItem extends MenuItem {
+  quantity: number;
+  selectedOptions?: SelectedOption[];
+  comment?: string;
+  guestName?: string;
+}
+
+export interface SelectedOption {
+  optionId: string;
+  choiceIds: string[];
+  customValue?: string;
+}
+
+export type DeliveryType = 'pickup' | 'delivery' | 'dine_in';
+export type OrderStatus = 'pending' | 'confirmed' | 'preparing' | 'ready' | 'delivered' | 'cancelled';
+
+export interface Order {
+  id: string;
+  customerId: string;
+  customerInfo: {
+    name: string;
+    email: string;
+    phone: string;
+    address: string;
+  };
+  items: CartItem[];
+  status: OrderStatus;
+  deliveryType: DeliveryType;
+  deliveryAddress?: string;
+  deliveryTime: Date;
+  totalAmount: number;
+  deliveryPrice?: number;
+  paymentStatus: 'pending' | 'paid' | 'failed';
+  notes?: string;
+  createdAt: Date;
+  updatedAt?: Date;
+  preparationTime: number;
+  assignedTo?: string;
+}
+
+// Horaires d'ouverture
+export interface OpeningHours {
+  monday: DaySchedule;
+  tuesday: DaySchedule;
+  wednesday: DaySchedule;
+  thursday: DaySchedule;
+  friday: DaySchedule;
+  saturday: DaySchedule;
+  sunday: DaySchedule;
+  holidays?: Date[];
+  specialHours?: SpecialHours[];
+}
+
+export interface DaySchedule {
+  open: string;
+  close: string;
+  isClosed: boolean;
+  breaks?: TimeBreak[];
+}
+
+export interface TimeBreak {
+  start: string;
+  end: string;
+}
+
+export interface SpecialHours {
+  date: Date;
+  schedule: DaySchedule;
+  reason: string;
+}
+
+// Réseaux sociaux
+export interface SocialLinks {
+  facebook?: string;
+  instagram?: string;
+  twitter?: string;
+  tiktok?: string;
+  youtube?: string;
+  google?: string;
+}
+
 // Avis Google
 export interface GoogleReview {
   id: string;
   authorName: string;
   authorPhotoUrl?: string;
-  rating: number; // 1-5
+  rating: number;
   text: string;
   timeDescription: string;
   relativeTimeDescription: string;
@@ -343,98 +364,61 @@ export interface TrafficSource {
   users: number;
   newUsers: number;
 }
-  address?: Address;
-  notes?: string; // notes privées du restaurant
-  allergies?: string[];
-  orders: Order[];
-  createdAt: Date;
-}
 
-export interface Address {
-  street: string;
-  city: string;
-  postalCode: string;
-  deliveryZone?: string;
-}
-
-export interface Order {
-  id: string;
-  customerId: string;
-  customerInfo: {
-    name: string;
-    email: string;
-    phone: string;
-    address: string;
-  };
-  items: CartItem[];
-  status: OrderStatus;
-  deliveryType: 'pickup' | 'delivery' | 'dine_in';
-  deliveryAddress?: string;
-  deliveryTime: Date;
-  totalAmount: number;
-  deliveryPrice?: number;
-  paymentStatus: 'pending' | 'paid' | 'failed';
-  notes?: string;
-  createdAt: Date;
-  updatedAt?: Date;
-  preparationTime: number;
-  deliveryZone?: string;
-  guestCount?: number;
-  guestNames?: string[];
-  kitchenTicket?: PrintTicket;
-  barTicket?: PrintTicket;
-}
-
-export type DeliveryType = 'pickup' | 'delivery' | 'dine_in';
-
-export interface PrintTicket {
-  orderId: string;
-  customerName: string;
-  items: TicketItem[];
-  totalTime: number;
-  scheduledTime: Date;
-  deliveryTime?: Date;
-  station: 'kitchen' | 'bar';
-}
-
-export interface TicketItem {
-  name: string;
-  quantity: number;
-  options?: string[];
-  comment?: string;
-  preparationTime: number;
-}
-
-export type OrderStatus = 
-  | 'pending' 
-  | 'confirmed' 
-  | 'preparing' 
-  | 'ready' 
-  | 'delivered' 
-  | 'cancelled';
-
+// Types pour l'administration
 export interface AdminUser {
   id: string;
   username: string;
+  email: string;
   role: 'admin' | 'manager' | 'staff';
   permissions: Permission[];
+  lastLogin?: Date;
+  isActive: boolean;
 }
 
-export type Permission = 
-  | 'manage_products' 
-  | 'manage_orders' 
-  | 'manage_customers' 
-  | 'manage_settings' 
-  | 'view_analytics' 
-  | 'manage_users';
-
-export interface Reservation {
-  id?: string;
+export interface Permission {
+  id: string;
   name: string;
-  email: string;
-  phone: string;
-  date: string;
-  time: string;
-  guests: number;
-  message?: string;
+  description: string;
+  category: string;
+}
+
+// Types pour les statistiques détaillées
+export interface OrderStatistics {
+  totalOrders: number;
+  totalRevenue: number;
+  averageOrderValue: number;
+  topSellingItems: MenuItem[];
+  busyHours: BusyHourData[];
+  customerRetentionRate: number;
+  newCustomerRate: number;
+}
+
+export interface BusyHourData {
+  hour: number;
+  orderCount: number;
+  revenue: number;
+}
+
+// Types pour la gestion avancée des menus
+export interface MenuSection {
+  id: string;
+  name: string;
+  description?: string;
+  items: MenuItem[];
+  displayOrder: number;
+  isActive: boolean;
+  availableFrom?: string;
+  availableUntil?: string;
+}
+
+export interface MenuPDF {
+  id: string;
+  name: string;
+  version: string;
+  fileUrl: string;
+  uploadDate: Date;
+  isActive: boolean;
+  language: string;
+  category: 'full-menu' | 'drinks' | 'desserts' | 'specials';
 }

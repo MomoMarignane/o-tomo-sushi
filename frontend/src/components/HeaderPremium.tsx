@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Menu, X, ShoppingBag } from 'lucide-react';
+import { ShoppingCart, Menu, X, Shield } from 'lucide-react';
 
 interface HeaderPremiumProps {
   cartCount?: number;
   onCartClick?: () => void;
+  onAdminClick?: () => void;
 }
 
-const HeaderPremium: React.FC<HeaderPremiumProps> = ({ cartCount = 0, onCartClick }) => {
+const HeaderPremium: React.FC<HeaderPremiumProps> = ({ cartCount = 0, onCartClick, onAdminClick }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -29,10 +30,10 @@ const HeaderPremium: React.FC<HeaderPremiumProps> = ({ cartCount = 0, onCartClic
 
   return (
     <motion.header 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
+      className={`fixed left-0 right-0 z-50 transition-all duration-700 ${
         isScrolled 
-          ? 'bg-white/80 backdrop-blur-xl border-b border-gray-100 py-3 sm:py-4' 
-          : 'bg-transparent py-4 sm:py-6'
+          ? 'bg-white/80 backdrop-blur-xl border-b border-gray-100 py-3 sm:py-4 top-0' 
+          : 'bg-transparent py-4 sm:py-6 top-14'
       }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
@@ -86,13 +87,26 @@ const HeaderPremium: React.FC<HeaderPremiumProps> = ({ cartCount = 0, onCartClic
               Réserver
             </motion.button>
             
+            {/* Bouton Admin */}
+            {onAdminClick && (
+              <motion.button 
+                className="relative p-2 text-gray-900 hover:bg-gray-100 rounded-full transition-all duration-300"
+                onClick={onAdminClick}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                title="Administration"
+              >
+                <Shield className="w-4 h-4 sm:w-5 sm:h-5" />
+              </motion.button>
+            )}
+            
             <motion.button 
               className="relative p-2 text-gray-900 hover:bg-gray-100 rounded-full transition-all duration-300"
               onClick={onCartClick}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <ShoppingBag className="w-4 h-4 sm:w-5 sm:h-5" />
+              <ShoppingCart className="w-4 h-4 sm:w-5 sm:h-5" />
               {cartCount > 0 && (
                 <span className="absolute -top-1 -right-1 bg-gray-900 text-white text-xs rounded-full w-4 h-4 sm:w-5 sm:h-5 flex items-center justify-center font-medium">
                   {cartCount}

@@ -29,6 +29,24 @@ function App() {
     });
   };
 
+  const decrementFromCart = (item: MenuItem) => {
+    setCart(currentCart => {
+      const existingItem = currentCart.find(cartItem => cartItem.id === item.id);
+      
+      if (existingItem && existingItem.quantity > 1) {
+        return currentCart.map(cartItem =>
+          cartItem.id === item.id
+            ? { ...cartItem, quantity: cartItem.quantity - 1 }
+            : cartItem
+        );
+      } else if (existingItem && existingItem.quantity === 1) {
+        return currentCart.filter(cartItem => cartItem.id !== item.id);
+      }
+      
+      return currentCart;
+    });
+  };
+
   const removeFromCart = (itemId: string) => {
     setCart(currentCart => currentCart.filter(item => item.id !== itemId));
   };
@@ -64,7 +82,10 @@ function App() {
       <HeroPremium onOrderClick={openCart} />
 
       {/* Menu Modern */}
-      <MenuModern onAddToCart={(item) => addToCart(item, 1)} />
+      <MenuModern 
+        onAddToCart={(item) => addToCart(item, 1)} 
+        onRemoveFromCart={decrementFromCart}
+      />
 
       {/* Modal Panier */}
       <AnimatePresence>

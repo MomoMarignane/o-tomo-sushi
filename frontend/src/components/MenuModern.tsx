@@ -5,9 +5,10 @@ import type { MenuItem } from '../types';
 
 interface MenuModernProps {
   onAddToCart?: (item: MenuItem) => void;
+  onRemoveFromCart?: (item: MenuItem) => void;
 }
 
-const MenuModern: React.FC<MenuModernProps> = ({ onAddToCart }) => {
+const MenuModern: React.FC<MenuModernProps> = ({ onAddToCart, onRemoveFromCart }) => {
   const [activeCategory, setActiveCategory] = useState('sushi');
   const [quantities, setQuantities] = useState<Record<string, number>>({});
 
@@ -52,10 +53,21 @@ const MenuModern: React.FC<MenuModernProps> = ({ onAddToCart }) => {
   const filteredItems = menuItems.filter(item => item.category === activeCategory);
 
   const updateQuantity = (itemId: string, change: number) => {
+    const currentQuantity = quantities[itemId] || 0;
+    const newQuantity = Math.max(0, currentQuantity + change);
+    
     setQuantities(prev => ({
       ...prev,
-      [itemId]: Math.max(0, (prev[itemId] || 0) + change)
+      [itemId]: newQuantity
     }));
+
+    // Si on diminue la quantité, appeler onRemoveFromCart
+    if (change < 0 && onRemoveFromCart) {
+      const item = menuItems.find(item => item.id === itemId);
+      if (item) {
+        onRemoveFromCart(item);
+      }
+    }
   };
 
   const addToCart = (item: MenuItem) => {
@@ -121,11 +133,11 @@ const MenuModern: React.FC<MenuModernProps> = ({ onAddToCart }) => {
               className="menu-item group"
             >
               {/* Badge populaire */}
-              {item.popular && (
+              {/* {item.popular && (
                 <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-10 bg-gray-900 text-white text-xs px-2 py-1 rounded-full">
                   Populaire
                 </div>
-              )}
+              )} */}
 
               {/* Image */}
               <div className="relative overflow-hidden rounded-xl mb-3 sm:mb-4">

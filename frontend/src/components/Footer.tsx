@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapPin, Phone, Mail, Clock, Facebook, Instagram, Heart } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Facebook, Instagram } from 'lucide-react';
 import { restaurantInfo } from '../data/menu';
 
 const Footer: React.FC = () => {
@@ -140,9 +140,7 @@ const Footer: React.FC = () => {
               © 2024 Ô TOMO Sushi. Tous droits réservés.
             </p>
             <div className="flex items-center text-gray-400 text-sm">
-              <span>Développé avec</span>
-              <Heart className="w-4 h-4 mx-1 text-red-400 fill-current" />
-              <span>pour l'authenticité japonaise</span>
+              <span>Restaurant Izakaya japonais authentique • Saint-Maximin-la-Sainte-Baume</span>
             </div>
           </div>
         </div>

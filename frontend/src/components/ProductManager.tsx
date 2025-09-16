@@ -7,8 +7,6 @@ import {
   Save, 
   X, 
   Search,
-  Eye,
-  EyeOff,
   Clock,
   Tag,
   AlertCircle,
@@ -265,17 +263,52 @@ const ProductManager: React.FC<ProductManagerProps> = ({ userRole }) => {
               ))}
             </select>
 
-            <button
-              onClick={() => setShowUnavailable(!showUnavailable)}
-              className={`flex items-center space-x-2 px-3 py-2 rounded-lg border transition-colors ${
-                showUnavailable
-                  ? 'bg-gray-100 border-gray-300 text-gray-700'
-                  : 'bg-white border-gray-300 text-gray-600 hover:bg-gray-50'
-              }`}
-            >
-              {showUnavailable ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
-              <span className="text-sm">Indisponibles</span>
-            </button>
+            {/* Filtre par disponibilité amélioré */}
+            <div className="flex items-center space-x-2 bg-gray-50 rounded-lg p-1">
+              <button
+                onClick={() => setShowUnavailable(false)}
+                className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${
+                  !showUnavailable
+                    ? 'bg-white text-green-700 shadow-sm border border-green-200'
+                    : 'text-gray-600 hover:text-green-600'
+                }`}
+              >
+                <div className="flex items-center space-x-1">
+                  <div className="w-2 h-2 bg-green-500 rounded-full" />
+                  <span>Disponibles</span>
+                </div>
+              </button>
+              
+              <button
+                onClick={() => setShowUnavailable(true)}
+                className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${
+                  showUnavailable
+                    ? 'bg-white text-gray-700 shadow-sm border border-gray-200'
+                    : 'text-gray-600 hover:text-gray-700'
+                }`}
+              >
+                <div className="flex items-center space-x-1">
+                  <div className="w-2 h-2 bg-gray-400 rounded-full" />
+                  <span>Tous les articles</span>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Statistiques rapides */}
+        <div className="mt-4 flex items-center space-x-6 text-sm text-gray-600">
+          <div className="flex items-center space-x-2">
+            <div className="w-2 h-2 bg-green-500 rounded-full" />
+            <span>{products.filter(p => p.available).length} disponibles</span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <div className="w-2 h-2 bg-red-500 rounded-full" />
+            <span>{products.filter(p => !p.available).length} en rupture</span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <div className="w-2 h-2 bg-blue-500 rounded-full" />
+            <span>{products.reduce((acc, p) => acc + (p.options?.length || 0), 0)} options au total</span>
           </div>
         </div>
       </div>
@@ -301,19 +334,36 @@ const ProductManager: React.FC<ProductManagerProps> = ({ userRole }) => {
                 <img
                   src={product.image || '/api/placeholder/300/200'}
                   alt={product.name}
-                  className="w-full h-48 object-cover rounded-t-lg"
+                  className={`w-full h-48 object-cover rounded-t-lg transition-all ${
+                    !product.available ? 'grayscale opacity-50' : ''
+                  }`}
                 />
                 
+                {/* Badge de disponibilité */}
+                <div className="absolute top-3 left-3">
+                  <div className={`flex items-center space-x-1 px-2 py-1 rounded-full text-xs font-medium ${
+                    product.available 
+                      ? 'bg-green-100 text-green-700 border border-green-200' 
+                      : 'bg-red-100 text-red-700 border border-red-200'
+                  }`}>
+                    <div className={`w-2 h-2 rounded-full ${
+                      product.available ? 'bg-green-500 animate-pulse' : 'bg-red-500'
+                    }`} />
+                    <span>{product.available ? 'Disponible' : 'Rupture'}</span>
+                  </div>
+                </div>
+
                 {!product.available && (
-                  <div className="absolute inset-0 bg-black/50 rounded-t-lg flex items-center justify-center">
-                    <span className="text-white font-semibold bg-red-600 px-3 py-1 rounded-full">
-                      Indisponible
-                    </span>
+                  <div className="absolute inset-0 bg-black/30 rounded-t-lg flex items-center justify-center">
+                    <div className="text-center bg-white/90 backdrop-blur-sm px-4 py-2 rounded-lg">
+                      <div className="text-red-600 font-semibold text-sm">Article indisponible</div>
+                      <div className="text-gray-600 text-xs">Temporairement en rupture</div>
+                    </div>
                   </div>
                 )}
 
                 {product.options && product.options.length > 0 && (
-                  <div className="absolute top-2 right-2">
+                  <div className="absolute top-3 right-3">
                     <div className="bg-blue-500 text-white px-2 py-1 rounded-full text-xs font-medium">
                       +{product.options.length} option{product.options.length > 1 ? 's' : ''}
                     </div>
@@ -362,27 +412,50 @@ const ProductManager: React.FC<ProductManagerProps> = ({ userRole }) => {
                 {/* Actions */}
                 {canEdit && (
                   <div className="flex items-center justify-between pt-3 border-t border-gray-100">
-                    <button
-                      onClick={() => handleToggleAvailability(product.id)}
-                      className={`text-xs px-2 py-1 rounded-full transition-colors ${
-                        product.available
-                          ? 'bg-green-100 text-green-700 hover:bg-green-200'
-                          : 'bg-red-100 text-red-700 hover:bg-red-200'
-                      }`}
-                    >
-                      {product.available ? 'Disponible' : 'Indisponible'}
-                    </button>
+                    {/* Toggle de disponibilité amélioré */}
+                    <div className="flex items-center space-x-2">
+                      <button
+                        onClick={() => handleToggleAvailability(product.id)}
+                        className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 ${
+                          product.available
+                            ? 'bg-green-500 focus:ring-green-500'
+                            : 'bg-red-400 focus:ring-red-400'
+                        }`}
+                      >
+                        <span className="sr-only">
+                          {product.available ? 'Marquer comme indisponible' : 'Marquer comme disponible'}
+                        </span>
+                        <span
+                          className={`inline-block h-4 w-4 transform rounded-full bg-white transition ${
+                            product.available ? 'translate-x-6' : 'translate-x-1'
+                          }`}
+                        />
+                      </button>
+                      
+                      <div className="flex items-center space-x-1">
+                        <div className={`w-2 h-2 rounded-full ${
+                          product.available ? 'bg-green-500' : 'bg-red-500'
+                        }`} />
+                        <span className={`text-xs font-medium ${
+                          product.available ? 'text-green-700' : 'text-red-700'
+                        }`}>
+                          {product.available ? 'En stock' : 'Rupture'}
+                        </span>
+                      </div>
+                    </div>
 
                     <div className="flex items-center space-x-1">
                       <button
                         onClick={() => handleEditProduct(product)}
                         className="p-1.5 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded transition-colors"
+                        title="Modifier l'article"
                       >
                         <Edit3 className="w-4 h-4" />
                       </button>
                       <button
                         onClick={() => handleDeleteProduct(product.id)}
                         className="p-1.5 text-gray-600 hover:text-red-600 hover:bg-red-50 rounded transition-colors"
+                        title="Supprimer l'article"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
@@ -480,21 +553,84 @@ const ProductManager: React.FC<ProductManagerProps> = ({ userRole }) => {
                       </div>
                     </div>
 
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Catégorie
-                      </label>
-                      <select
-                        value={editingProduct.category}
-                        onChange={(e) => setEditingProduct(prev => prev ? { ...prev, category: e.target.value } : null)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
-                      >
-                        {categories.filter(c => c.id !== 'all').map(category => (
-                          <option key={category.id} value={category.id}>
-                            {category.name}
-                          </option>
-                        ))}
-                      </select>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Catégorie
+                        </label>
+                        <select
+                          value={editingProduct.category}
+                          onChange={(e) => setEditingProduct(prev => prev ? { ...prev, category: e.target.value } : null)}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                        >
+                          {categories.filter(c => c.id !== 'all').map(category => (
+                            <option key={category.id} value={category.id}>
+                              {category.name}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                      {/* Statut de disponibilité */}
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Disponibilité
+                        </label>
+                        <div className="flex items-center space-x-4">
+                          <button
+                            type="button"
+                            onClick={() => setEditingProduct(prev => prev ? { ...prev, available: true } : null)}
+                            className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all ${
+                              editingProduct.available
+                                ? 'bg-green-100 text-green-700 border-2 border-green-300'
+                                : 'bg-gray-100 text-gray-600 border-2 border-gray-200 hover:bg-green-50'
+                            }`}
+                          >
+                            <div className={`w-2 h-2 rounded-full ${editingProduct.available ? 'bg-green-500' : 'bg-gray-400'}`} />
+                            <span className="text-sm font-medium">Disponible</span>
+                          </button>
+                          
+                          <button
+                            type="button"
+                            onClick={() => setEditingProduct(prev => prev ? { ...prev, available: false } : null)}
+                            className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all ${
+                              !editingProduct.available
+                                ? 'bg-red-100 text-red-700 border-2 border-red-300'
+                                : 'bg-gray-100 text-gray-600 border-2 border-gray-200 hover:bg-red-50'
+                            }`}
+                          >
+                            <div className={`w-2 h-2 rounded-full ${!editingProduct.available ? 'bg-red-500' : 'bg-gray-400'}`} />
+                            <span className="text-sm font-medium">Rupture</span>
+                          </button>
+                        </div>
+                        
+                        {/* Indicateur visuel détaillé */}
+                        <div className={`mt-2 p-3 rounded-lg border ${
+                          editingProduct.available 
+                            ? 'bg-green-50 border-green-200' 
+                            : 'bg-red-50 border-red-200'
+                        }`}>
+                          <div className="flex items-center space-x-2">
+                            {editingProduct.available ? (
+                              <>
+                                <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
+                                <span className="text-green-700 text-sm font-medium">Article disponible à la vente</span>
+                              </>
+                            ) : (
+                              <>
+                                <div className="w-3 h-3 bg-red-500 rounded-full" />
+                                <span className="text-red-700 text-sm font-medium">Article en rupture de stock</span>
+                              </>
+                            )}
+                          </div>
+                          <p className="text-xs mt-1 text-gray-600">
+                            {editingProduct.available 
+                              ? 'Les clients peuvent commander cet article' 
+                              : 'Cet article n\'apparaîtra pas dans le menu ou sera marqué comme indisponible'
+                            }
+                          </p>
+                        </div>
+                      </div>
                     </div>
 
                     {/* Image */}

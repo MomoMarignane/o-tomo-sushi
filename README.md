@@ -228,7 +228,3 @@ Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
 
 **MVP développé pour Ô TOMO Sushi**  
 Restaurant Izakaya japonais - Saint-Maximin-la-Sainte-Baume
-
----
-
-*Développé avec ❤️ pour l'authenticité japonaise*

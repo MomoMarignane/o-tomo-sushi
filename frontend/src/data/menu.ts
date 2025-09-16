@@ -182,17 +182,17 @@ export const menuItems: MenuItem[] = [
 export const restaurantInfo = {
   name: 'Ô TOMO Sushi',
   description: 'Restaurant Izakaya japonais authentique à Saint-Maximin-la-Sainte-Baume. Découvrez notre cuisine traditionnelle dans une ambiance conviviale.',
-  address: '123 Avenue des Platanes, 83470 Saint-Maximin-la-Sainte-Baume',
-  phone: '04 94 XX XX XX',
+  address: '33 Bd Victor Hugo, 83470 Saint-Maximin-la-Sainte-Baume',
+  phone: '04 94 59 61 59',
   email: 'contact@otomo-sushi.fr',
   hours: {
-    'Lundi': 'Fermé',
-    'Mardi': '18h30 - 22h30',
-    'Mercredi': '18h30 - 22h30',
-    'Jeudi': '18h30 - 22h30',
-    'Vendredi': '18h30 - 23h00',
-    'Samedi': '18h30 - 23h00',
-    'Dimanche': '18h30 - 22h30'
+    'Lundi': '11h30 - 14h • 19h - 21h30',
+    'Mardi': '11h30 - 14h • 19h - 21h30',
+    'Mercredi': '11h30 - 14h • 19h - 21h30',
+    'Jeudi': '11h30 - 14h • 19h - 21h30',
+    'Vendredi': '11h30 - 14h • 19h - 21h30',
+    'Samedi': 'Fermé',
+    'Dimanche': 'Fermé'
   },
   paymentMethods: ['Espèces', 'Carte bancaire', 'Chèques', 'Tickets restaurant'],
   social: {

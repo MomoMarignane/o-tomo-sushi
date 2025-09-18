@@ -31,18 +31,19 @@ const SimpleBanner: React.FC<SimpleBannerProps> = ({ messages, onDismiss }) => {
 
   const currentMessage = activeMessages[currentIndex];
 
+  // Thème boisé : couleurs chaudes et textures
   const getColorByPriority = (priority: number) => {
-    if (priority >= 90) return 'bg-red-500'; // Urgent
-    if (priority >= 70) return 'bg-yellow-500'; // Important
-    if (priority >= 50) return 'bg-blue-500'; // Information
-    return 'bg-gray-500'; // Normal
+    if (priority >= 90) return 'bg-gradient-to-r from-[#7c4a03] via-[#b97a56] to-[#a86b2d]'; // Urgent bois foncé
+    if (priority >= 70) return 'bg-gradient-to-r from-[#b97a56] via-[#e7c9a9] to-[#a86b2d]'; // Important bois doré
+    if (priority >= 50) return 'bg-gradient-to-r from-[#e7c9a9] via-[#b97a56] to-[#a86b2d]'; // Information beige/bois
+    return 'bg-gradient-to-r from-[#a86b2d] via-[#e7c9a9] to-[#b97a56]'; // Normal bois clair
   };
 
   const getTextColorByPriority = (priority: number) => {
-    if (priority >= 90) return 'text-red-50';
-    if (priority >= 70) return 'text-yellow-50';
-    if (priority >= 50) return 'text-blue-50';
-    return 'text-gray-50';
+    if (priority >= 90) return 'text-[#fff8f0]';
+    if (priority >= 70) return 'text-[#4b2e0e]';
+    if (priority >= 50) return 'text-[#7c4a03]';
+    return 'text-[#4b2e0e]';
   };
 
   const getIconByType = (type: string) => {
@@ -64,7 +65,11 @@ const SimpleBanner: React.FC<SimpleBannerProps> = ({ messages, onDismiss }) => {
         initial={{ height: 0, opacity: 0 }}
         animate={{ height: 'auto', opacity: 1 }}
         exit={{ height: 0, opacity: 0 }}
-        className={`relative overflow-hidden ${getColorByPriority(currentMessage.priority)}`}
+        className={`relative overflow-hidden ${getColorByPriority(currentMessage.priority)} shadow-lg border-b-4 border-[#a86b2d]`}
+        style={{
+          backgroundImage: 'url("https://www.transparenttextures.com/patterns/wood-pattern.png")',
+          backgroundBlendMode: 'multiply',
+        }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between py-3">
@@ -73,9 +78,9 @@ const SimpleBanner: React.FC<SimpleBannerProps> = ({ messages, onDismiss }) => {
                 initial={{ rotate: 0 }}
                 animate={{ rotate: 360 }}
                 transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                className="flex-shrink-0"
+                className="flex-shrink-0 bg-[#e7c9a9] rounded-full p-2 shadow"
               >
-                <IconComponent className={`w-5 h-5 ${getTextColorByPriority(currentMessage.priority)}`} />
+                <IconComponent className={`w-6 h-6 ${getTextColorByPriority(currentMessage.priority)}`} />
               </motion.div>
 
               <div className="flex-1 min-w-0">
@@ -86,7 +91,11 @@ const SimpleBanner: React.FC<SimpleBannerProps> = ({ messages, onDismiss }) => {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -20 }}
                     transition={{ duration: 0.3 }}
-                    className={`text-sm font-medium ${getTextColorByPriority(currentMessage.priority)} truncate sm:text-center`}
+                    className={`text-base font-display font-semibold tracking-wide ${getTextColorByPriority(currentMessage.priority)} truncate sm:text-center drop-shadow`}
+                    style={{
+                      textShadow: '0 1px 2px #a86b2d55',
+                      letterSpacing: '0.02em',
+                    }}
                   >
                     {currentMessage.text}
                   </motion.p>
@@ -99,10 +108,10 @@ const SimpleBanner: React.FC<SimpleBannerProps> = ({ messages, onDismiss }) => {
                     <button
                       key={index}
                       onClick={() => setCurrentIndex(index)}
-                      className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                      className={`w-2 h-2 rounded-full border border-[#a86b2d] transition-all duration-300 ${
                         index === currentIndex 
-                          ? `${getTextColorByPriority(currentMessage.priority).replace('text-', 'bg-')}` 
-                          : `${getTextColorByPriority(currentMessage.priority).replace('text-', 'bg-')} opacity-50`
+                          ? 'bg-[#a86b2d]' 
+                          : 'bg-[#e7c9a9] opacity-50'
                       }`}
                     />
                   ))}
@@ -115,11 +124,11 @@ const SimpleBanner: React.FC<SimpleBannerProps> = ({ messages, onDismiss }) => {
                 setIsVisible(false);
                 onDismiss?.(currentMessage.id);
               }}
-              className={`flex-shrink-0 p-1 rounded-full hover:bg-black/10 transition-colors ${getTextColorByPriority(currentMessage.priority)}`}
+              className={`flex-shrink-0 p-1 rounded-full hover:bg-[#a86b2d]/20 transition-colors ${getTextColorByPriority(currentMessage.priority)} border border-[#a86b2d]`}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
-              <X className="w-4 h-4" />
+              <X className="w-5 h-5" />
             </motion.button>
           </div>
         </div>
@@ -127,7 +136,7 @@ const SimpleBanner: React.FC<SimpleBannerProps> = ({ messages, onDismiss }) => {
         {/* Progress bar pour auto-slide */}
         {activeMessages.length > 1 && (
           <motion.div
-            className="absolute bottom-0 left-0 h-0.5 bg-white/30"
+            className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-[#a86b2d] via-[#e7c9a9] to-[#b97a56]"
             initial={{ width: "0%" }}
             animate={{ width: "100%" }}
             transition={{ duration: 5, ease: "linear" }}

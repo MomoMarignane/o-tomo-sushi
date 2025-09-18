@@ -10,6 +10,7 @@ import AdminLogin from './components/AdminLogin';
 import type { CartItem, MenuItem, BannerMessage, AdminUser } from './types';
 
 function App() {
+  console.log('App component rendering...'); // Debug log
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isAdminPanelOpen, setIsAdminPanelOpen] = useState(false);

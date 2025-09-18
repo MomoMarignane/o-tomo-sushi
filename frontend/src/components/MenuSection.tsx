@@ -24,15 +24,31 @@ const MenuSection: React.FC<MenuSectionProps> = ({ onAddToCart, cart }) => {
   };
 
   return (
-    <section id="menu" className="py-16 bg-white">
-      <div className="container-max section-padding">
+    <section id="menu" className="py-16 relative overflow-hidden"
+      style={{
+        backgroundImage: `
+          linear-gradient(135deg, rgba(75, 46, 14, 0.03) 0%, rgba(123, 74, 3, 0.08) 50%, rgba(168, 107, 45, 0.03) 100%),
+          url('https://www.transparenttextures.com/patterns/wood-pattern.png')
+        `,
+        backgroundBlendMode: 'multiply',
+      }}
+    >
+      {/* Background texture overlay */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d2691e' fill-opacity='0.15'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+        }} />
+      </div>
+
+      <div className="container-max section-padding relative">
         <div className="text-center mb-12">
-          <h2 className="font-display text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="font-display text-3xl md:text-4xl font-bold bg-gradient-to-r from-wood-800 to-wood-600 bg-clip-text text-transparent mb-4 drop-shadow-lg">
             Notre Menu
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <div className="w-16 h-1 bg-gradient-to-r from-warm-500 to-warm-600 rounded-full mx-auto mb-6"></div>
+          <p className="text-lg text-wood-700 max-w-2xl mx-auto leading-relaxed">
             Découvrez notre sélection de plats japonais authentiques, 
-            préparés avec des ingrédients frais et de qualité.
+            préparés avec des ingrédients frais et de qualité dans notre cuisine traditionnelle.
           </p>
         </div>
 
@@ -43,10 +59,10 @@ const MenuSection: React.FC<MenuSectionProps> = ({ onAddToCart, cart }) => {
             <div className="flex flex-wrap gap-2">
               <button
                 onClick={() => setSelectedCategory('all')}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 shadow-sm ${
                   selectedCategory === 'all'
-                    ? 'bg-primary-600 text-white'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    ? 'bg-gradient-to-r from-warm-600 to-warm-500 text-white shadow-warm border border-warm-600'
+                    : 'bg-wood-100 text-wood-700 hover:bg-wood-200 border border-wood-200 hover:border-wood-300'
                 }`}
               >
                 Tous
@@ -55,10 +71,10 @@ const MenuSection: React.FC<MenuSectionProps> = ({ onAddToCart, cart }) => {
                 <button
                   key={category.id}
                   onClick={() => setSelectedCategory(category.id)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 shadow-sm ${
                     selectedCategory === category.id
-                      ? 'bg-primary-600 text-white'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      ? 'bg-gradient-to-r from-warm-600 to-warm-500 text-white shadow-warm border border-warm-600'
+                      : 'bg-wood-100 text-wood-700 hover:bg-wood-200 border border-wood-200 hover:border-wood-300'
                   }`}
                 >
                   {category.name}
@@ -73,9 +89,9 @@ const MenuSection: React.FC<MenuSectionProps> = ({ onAddToCart, cart }) => {
                 placeholder="Rechercher un plat..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                className="pl-10 pr-4 py-2 border border-wood-300 rounded-lg bg-wood-50/80 backdrop-blur-sm text-wood-800 placeholder-wood-500 focus:ring-2 focus:ring-warm-500 focus:border-warm-500 transition-colors shadow-sm"
               />
-              <Filter className="absolute left-3 top-2.5 w-4 h-4 text-gray-400" />
+              <Filter className="absolute left-3 top-2.5 w-4 h-4 text-wood-500" />
             </div>
           </div>
         </div>
@@ -94,7 +110,7 @@ const MenuSection: React.FC<MenuSectionProps> = ({ onAddToCart, cart }) => {
 
         {filteredItems.length === 0 && (
           <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">
+            <p className="text-wood-600 text-lg font-medium">
               Aucun plat trouvé pour cette recherche.
             </p>
           </div>
@@ -112,40 +128,49 @@ interface MenuCardProps {
 
 const MenuCard: React.FC<MenuCardProps> = ({ item, onAddToCart, cartQuantity }) => {
   return (
-    <div className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition-shadow duration-300">
-      <div className="aspect-video bg-gray-100 relative">
+    <div className="group relative bg-wood-50/90 backdrop-blur-sm border border-wood-200 rounded-xl overflow-hidden hover:shadow-wood-lg transition-all duration-300"
+      style={{
+        backgroundImage: `
+          linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(245, 234, 218, 0.8) 100%),
+          url('https://www.transparenttextures.com/patterns/wood-pattern.png')
+        `,
+        backgroundBlendMode: 'multiply',
+        backgroundSize: '80px 80px, cover',
+      }}
+    >
+      <div className="aspect-video bg-wood-200 relative border-b border-wood-300">
         <img
           src={item.image || '/images/placeholder-dish.jpg'}
           alt={item.name}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           onError={(e) => {
             const target = e.target as HTMLImageElement;
             target.src = '/images/placeholder-dish.jpg';
           }}
         />
         {cartQuantity > 0 && (
-          <div className="absolute top-3 right-3 bg-primary-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">
+          <div className="absolute top-3 right-3 bg-gradient-to-r from-warm-600 to-warm-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold shadow-warm border border-warm-600">
             {cartQuantity}
           </div>
         )}
       </div>
       
       <div className="p-6">
-        <h3 className="font-semibold text-lg text-gray-900 mb-2">
+        <h3 className="font-semibold text-lg text-wood-800 mb-2 group-hover:text-wood-900 transition-colors">
           {item.name}
         </h3>
-        <p className="text-gray-600 text-sm mb-4">
+        <p className="text-wood-600 text-sm mb-4 leading-relaxed">
           {item.description}
         </p>
         
         <div className="flex items-center justify-between">
-          <span className="text-xl font-bold text-primary-600">
+          <span className="text-xl font-bold text-warm-600">
             {item.price.toFixed(2)} €
           </span>
           
           <button
             onClick={() => onAddToCart(item)}
-            className="flex items-center space-x-2 bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg font-medium transition-colors"
+            className="flex items-center space-x-2 bg-gradient-to-r from-warm-600 to-warm-500 hover:from-warm-700 hover:to-warm-600 text-white px-4 py-2 rounded-lg font-medium transition-all duration-300 shadow-warm border border-warm-600 hover:shadow-warm-lg transform hover:scale-105"
           >
             <Plus className="w-4 h-4" />
             <span>Ajouter</span>

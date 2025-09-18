@@ -32,30 +32,35 @@ const HeaderPremium: React.FC<HeaderPremiumProps> = ({ cartCount = 0, onCartClic
     <motion.header 
       className={`fixed left-0 right-0 z-50 transition-all duration-700 ${
         isScrolled 
-          ? 'bg-white/80 backdrop-blur-xl border-b border-gray-100 py-3 sm:py-4 top-0' 
-          : 'bg-transparent py-4 sm:py-6 top-14'
+          ? 'bg-wood-50/90 backdrop-blur-xl border-b-2 border-wood-300 shadow-wood py-3 sm:py-4 top-0' 
+          : 'bg-gradient-to-r from-wood-100/80 via-warm-50/70 to-wood-100/80 backdrop-blur-md py-4 sm:py-6 top-14'
       }`}
+      style={{
+        backgroundImage: !isScrolled ? 'url("https://www.transparenttextures.com/patterns/light-wood.png")' : 'none',
+        backgroundBlendMode: 'multiply',
+      }}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
       <div className="container-max px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          {/* Logo épuré */}
+          {/* Logo épuré avec thème boisé */}
           <motion.div 
             className="flex items-center space-x-2 sm:space-x-3"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            <div className="w-7 h-7 sm:w-8 sm:h-8 bg-black rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-xs sm:text-sm">Ô</span>
+            <div className="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-br from-wood-700 to-wood-800 rounded-lg flex items-center justify-center shadow-wood border border-wood-600">
+              <span className="text-wood-50 font-bold text-xs sm:text-sm font-japanese">Ô</span>
             </div>
             <div>
-              <h1 className="font-display text-lg sm:text-xl font-bold text-gray-900">TOMO</h1>
+              <h1 className="font-display text-lg sm:text-xl font-bold text-wood-gradient drop-shadow-sm">TOMO</h1>
+              <p className="text-xs text-wood-600 font-japanese hidden sm:block">寿司</p>
             </div>
           </motion.div>
 
-          {/* Navigation épurée */}
+          {/* Navigation épurée avec style boisé */}
           <nav className="hidden md:flex items-center space-x-6 lg:space-x-8">
             {navItems.map((item, index) => (
               <motion.a
@@ -63,8 +68,8 @@ const HeaderPremium: React.FC<HeaderPremiumProps> = ({ cartCount = 0, onCartClic
                 href={item.href}
                 className={`text-sm font-medium transition-all duration-300 ${
                   item.active 
-                    ? 'text-gray-900 border-b-2 border-gray-900 pb-1' 
-                    : 'text-gray-600 hover:text-gray-900'
+                    ? 'text-wood-800 border-b-2 border-wood-600 pb-1 font-semibold' 
+                    : 'text-wood-700 hover:text-wood-800 hover:border-b border-wood-400'
                 }`}
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -76,10 +81,10 @@ const HeaderPremium: React.FC<HeaderPremiumProps> = ({ cartCount = 0, onCartClic
             ))}
           </nav>
 
-          {/* Actions épurées */}
+          {/* Actions épurées avec thème boisé */}
           <div className="flex items-center space-x-2 sm:space-x-4">
             <motion.button 
-              className="hidden md:block text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors duration-300"
+              className="hidden md:block text-sm font-medium text-wood-700 hover:text-wood-800 transition-colors duration-300 bg-warm-100 hover:bg-warm-200 px-4 py-2 rounded-lg border border-wood-300 shadow-warm"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4, duration: 0.6 }}
@@ -90,7 +95,7 @@ const HeaderPremium: React.FC<HeaderPremiumProps> = ({ cartCount = 0, onCartClic
             {/* Bouton Admin */}
             {onAdminClick && (
               <motion.button 
-                className="relative p-2 text-gray-900 hover:bg-gray-100 rounded-full transition-all duration-300"
+                className="relative p-2 text-wood-800 hover:bg-wood-100 rounded-full transition-all duration-300 border border-wood-300 shadow-warm"
                 onClick={onAdminClick}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -101,14 +106,14 @@ const HeaderPremium: React.FC<HeaderPremiumProps> = ({ cartCount = 0, onCartClic
             )}
             
             <motion.button 
-              className="relative p-2 text-gray-900 hover:bg-gray-100 rounded-full transition-all duration-300"
+              className="relative p-2 text-wood-800 hover:bg-wood-100 rounded-full transition-all duration-300 border border-wood-300 shadow-warm"
               onClick={onCartClick}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               <ShoppingCart className="w-4 h-4 sm:w-5 sm:h-5" />
               {cartCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-gray-900 text-white text-xs rounded-full w-4 h-4 sm:w-5 sm:h-5 flex items-center justify-center font-medium">
+                <span className="absolute -top-1 -right-1 bg-gradient-to-r from-wood-700 to-wood-800 text-wood-50 text-xs rounded-full w-4 h-4 sm:w-5 sm:h-5 flex items-center justify-center font-medium shadow-wood">
                   {cartCount}
                 </span>
               )}
@@ -116,7 +121,7 @@ const HeaderPremium: React.FC<HeaderPremiumProps> = ({ cartCount = 0, onCartClic
 
             {/* Menu mobile épuré */}
             <motion.button
-              className="md:hidden p-2 text-gray-900 hover:bg-gray-100 rounded-full transition-all duration-300"
+              className="md:hidden p-2 text-wood-800 hover:bg-wood-100 rounded-full transition-all duration-300 border border-wood-300 shadow-warm"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               whileTap={{ scale: 0.95 }}
             >
@@ -134,7 +139,7 @@ const HeaderPremium: React.FC<HeaderPremiumProps> = ({ cartCount = 0, onCartClic
           </div>
         </div>
 
-        {/* Menu mobile épuré */}
+        {/* Menu mobile épuré avec thème boisé */}
         <motion.div
           className="md:hidden overflow-hidden"
           initial={{ height: 0, opacity: 0 }}
@@ -144,7 +149,7 @@ const HeaderPremium: React.FC<HeaderPremiumProps> = ({ cartCount = 0, onCartClic
           }}
           transition={{ duration: 0.3 }}
         >
-          <div className="pt-4 pb-6 border-t border-gray-100 mt-4 px-4 sm:px-6">
+          <div className="pt-4 pb-6 border-t-2 border-wood-300 mt-4 px-4 sm:px-6 bg-wood-50/80 rounded-lg backdrop-blur-sm">
             <nav className="flex flex-col space-y-4">
               {navItems.map((item) => (
                 <a
@@ -152,15 +157,15 @@ const HeaderPremium: React.FC<HeaderPremiumProps> = ({ cartCount = 0, onCartClic
                   href={item.href}
                   className={`text-base sm:text-sm font-medium transition-colors duration-200 py-2 ${
                     item.active 
-                      ? 'text-gray-900' 
-                      : 'text-gray-600 hover:text-gray-900'
+                      ? 'text-wood-800 font-semibold' 
+                      : 'text-wood-700 hover:text-wood-800'
                   }`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {item.label}
                 </a>
               ))}
-              <button className="text-left text-base sm:text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors duration-200 py-2">
+              <button className="text-left text-base sm:text-sm font-medium text-wood-700 hover:text-wood-800 transition-colors duration-200 py-2 bg-warm-100 hover:bg-warm-200 px-4 rounded-lg border border-wood-300">
                 Réserver
               </button>
             </nav>

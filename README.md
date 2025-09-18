@@ -1,230 +1,206 @@
-# 🍣 Ô TOMO Sushi - MVP Site Web
+# 🍱 Ô TOMO Sushi - Restaurant Japonais Moderne
 
-MVP moderne et épuré pour le restaurant Izakaya japonais Ô TOMO Sushi à Saint-Maximin-la-Sainte-Baume.
+## 📋 Description
 
-## 📋 Aperçu du Projet
+**Ô TOMO Sushi** est une application web moderne pour restaurant japonais, alliant élégance et fonctionnalité. Le site propose une expérience utilisateur immersive avec un **thème boisé chaleureux** qui évoque l'authenticité et la modernité d'un restaurant japonais haut de gamme.
 
-### **Contexte**
-Ô TOMO Sushi est un restaurant Izakaya japonais proposant une cuisine authentique dans un cadre convivial. Ce MVP modernise la présence digitale avec une UX améliorée et un design épuré.
+### ✨ Caractéristiques principales
 
-### **Objectifs**
-- ✅ Navigation responsive et intuitive
-- ✅ Design moderne inspiré de l'esthétique japonaise
-- ✅ Menu interactif avec panier
-- ✅ Click & collect
-- ✅ Interface de réservation
-- ✅ Performance optimisée
+- **🎨 Thème boisé moderne** : Design chaleureux avec palette de couleurs naturelles
+- **📱 Interface responsive** : Optimisé pour tous les appareils
+- **🛒 Système de commande** : Panier intuitif avec gestion des quantités
+- **👨‍💼 Panel administrateur** : Interface complète de gestion
+- **🎯 Bannières dynamiques** : Système de communication flexible
+- **🚚 Gestion livraison** : Zones et créneaux personnalisables
 
-## 🚀 Stack Technique
+## 🚀 Technologies utilisées
 
-### **Frontend**
-- **React 18** + TypeScript
-- **Tailwind CSS** pour le styling
-- **Lucide React** pour les icônes
-- **Vite** pour le build
+### Frontend
+- **React 19** + **TypeScript**
+- **Vite 7.1.5** (Build tool)
+- **Tailwind CSS 3.4** + Configuration personnalisée
+- **Framer Motion** (Animations)
+- **Lucide React** (Icônes)
 
-### **Backend**
-- **Node.js** + Express + TypeScript
-- **API REST** simple
-- Stockage en mémoire (pour le MVP)
+### Backend
+- **Node.js** + **TypeScript**
+- **Express.js** (API REST)
 
-## 📁 Structure du Projet
+### Outils de développement
+- **ESLint** (Linting)
+- **PostCSS** (CSS processing)
+- **Concurrently** (Scripts parallèles)
+
+## 🎨 Design System
+
+### Palette de couleurs boisée
+```css
+/* Tons boisés principaux */
+wood-50: #fdfcfb    /* Très clair */
+wood-100: #f7f3f0   /* Clair */
+wood-200: #ede4d8   /* Moyen clair */
+wood-300: #ddd0bd   /* Moyen */
+wood-500: #8b6f47   /* Standard */
+wood-700: #5d4731   /* Foncé */
+wood-800: #4a3426   /* Très foncé */
+wood-900: #3d2a1e   /* Ultra foncé */
+
+/* Tons chauds complémentaires */
+warm-50: #fef9f3    /* Beige très clair */
+warm-100: #fdf2e9   /* Beige clair */
+warm-200: #fce7d1   /* Beige doré */
+warm-300: #f9d5a7   /* Doré clair */
+warm-400: #f4a261   /* Orange chaud */
+warm-500: #e76f51   /* Rouge-orange */
+```
+
+### Typographie
+- **Titres** : Playfair Display (serif élégant)
+- **Corps** : Inter (sans-serif moderne)
+
+## 📁 Structure du projet
 
 ```
-o-tomo/
-├── frontend/                 # Application React
-│   ├── src/
-│   │   ├── components/      # Composants UI
-│   │   │   ├── Header.tsx
-│   │   │   ├── Hero.tsx
-│   │   │   ├── MenuSection.tsx
-│   │   │   ├── Cart.tsx
-│   │   │   └── Footer.tsx
-│   │   ├── data/           # Données statiques
-│   │   │   └── menu.ts
-│   │   ├── types/          # Types TypeScript
-│   │   │   └── index.ts
-│   │   ├── App.tsx         # Composant principal
-│   │   └── main.tsx        # Point d'entrée
-│   ├── package.json
-│   └── tailwind.config.js
-└── backend/                 # API Node.js
-    ├── src/
-    │   └── index.ts        # Serveur Express
-    ├── package.json
-    └── tsconfig.json
+o-tomo-sushi/
+├── 📁 frontend/              # Application React
+│   ├── 📁 src/
+│   │   ├── 📁 components/    # Composants React
+│   │   │   ├── AdminPanel.tsx    # Panel administrateur
+│   │   │   ├── MenuModern.tsx    # Affichage menu
+│   │   │   ├── Cart.tsx          # Panier
+│   │   │   └── ...
+│   │   ├── 📁 data/          # Données statiques
+│   │   ├── 📁 types/         # Types TypeScript
+│   │   ├── App.tsx           # Composant principal
+│   │   └── main.tsx          # Point d'entrée
+│   ├── tailwind.config.js    # Config Tailwind
+│   └── package.json
+├── 📁 backend/               # API Node.js
+└── README.md
 ```
 
-## 🛠️ Installation et Utilisation
+## 🛠️ Installation
 
-### **Prérequis**
-- Node.js 18+ 
-- npm ou yarn
+### Prérequis
+- **Node.js** 20.19+ ou 22.12+
+- **npm** ou **yarn**
 
-### **Installation**
+### Étapes d'installation
 
 1. **Cloner le projet**
-```bash
-git clone <repo-url>
-cd o-tomo
-```
+   ```bash
+   git clone [URL_DU_REPO]
+   cd o-tomo-sushi
+   ```
 
-2. **Installation Frontend**
-```bash
-cd frontend
-npm install
-```
+2. **Installer les dépendances**
+   ```bash
+   npm install
+   ```
 
-3. **Installation Backend**
-```bash
-cd ../backend
-npm install
-```
+3. **Installer les dépendances frontend et backend**
+   ```bash
+   cd frontend && npm install
+   cd ../backend && npm install
+   ```
 
-### **Développement**
+## 🚀 Démarrage
 
-1. **Démarrer le backend** (Terminal 1)
+### Développement (Frontend + Backend)
 ```bash
-cd backend
 npm run dev
-# Serveur sur http://localhost:3001
 ```
 
-2. **Démarrer le frontend** (Terminal 2)
+### Frontend uniquement
 ```bash
 cd frontend
 npm run dev
-# Application sur http://localhost:5173
 ```
+Application disponible sur : `http://localhost:5173/`
 
-### **Build de Production**
-
-1. **Backend**
+### Backend uniquement
 ```bash
 cd backend
+npm run dev
+```
+API disponible sur : `http://localhost:3000/`
+
+### Production
+```bash
 npm run build
 npm start
 ```
 
-2. **Frontend**
-```bash
-cd frontend
-npm run build
-# Fichiers dans dist/
+## 🎯 Fonctionnalités
+
+### 🛒 Interface client
+- **Menu interactif** avec catégories et filtres
+- **Panier dynamique** avec gestion des quantités
+- **Système de commande** avec validation
+- **Bannières promotionnelles** configurables
+- **Design responsive** pour mobile et desktop
+
+### 👨‍💼 Panel administrateur
+- **Tableau de bord** avec statistiques
+- **Gestion des produits** (CRUD complet)
+- **Suivi des commandes** en temps réel
+- **Configuration des bannières**
+- **Gestion des créneaux** de livraison
+- **Base de données clients**
+
+### 🎨 Thème boisé
+- **Aucune transparence** (design opaque)
+- **Textures bois** subtiles
+- **Gradients chaleureux**
+- **Ombres naturelles**
+- **Animations fluides**
+
+## 🔧 Configuration
+
+### Variables d'environnement
+Créer un fichier `.env` dans le dossier racine :
+```env
+# Backend
+PORT=3000
+NODE_ENV=development
+
+# Frontend
+VITE_API_URL=http://localhost:3000
 ```
 
-## 🎨 Fonctionnalités Implémentées
-
-### **✅ Interface Utilisateur**
-- Header avec navigation et contact
-- Hero section avec présentation du restaurant
-- Menu interactif avec filtres par catégorie
-- Recherche de plats
-- Panier flottant avec gestion des quantités
-- Footer avec informations complètes
-
-### **✅ Menu Interactif**
-- Catalogue de plats organisé par catégories
-- Filtrage dynamique (Sushi, Sashimi, Maki, etc.)
-- Recherche textuelle
-- Ajout au panier avec compteur
-- Images des plats (avec fallback)
-
-### **✅ Panier & Commande**
-- Panier latéral coulissant
-- Gestion des quantités
-- Calcul automatique du total
-- Interface de commande (prototype)
-
-### **✅ Backend API**
-- `POST /api/orders` - Créer une commande
-- `GET /api/orders/:id` - Récupérer une commande
-- `POST /api/reservations` - Créer une réservation
-- `GET /api/reservations/:id` - Récupérer une réservation
-- `GET /api/health` - Status de l'API
-
-### **✅ Design Responsive**
-- Mobile-first approach
-- Grille adaptive
-- Navigation mobile
-- Typographie élégante (Inter + Playfair Display)
-
-## 🎯 Fonctionnalités à Développer
-
-### **Phase 2**
-- [ ] Formulaire de commande complet
-- [ ] Formulaire de réservation
-- [ ] Intégration paiement (Stripe)
-- [ ] Notifications email
-- [ ] Base de données persistante
-- [ ] Panel administrateur
-
-### **Phase 3**
-- [ ] Système de points fidélité
-- [ ] Menu saisonnier
-- [ ] Multi-langues (FR/EN)
-- [ ] Progressive Web App
-- [ ] Analytics et métriques
-
-## 🎨 Design System
-
-### **Couleurs**
-- **Primary**: Orange (#f0770b) - Chaleur japonaise
-- **Neutral**: Gris (#737373) - Élégance
-- **Text**: Charbon (#171717)
-
-### **Typographie**
-- **Headers**: Playfair Display (serif élégant)
-- **Body**: Inter (sans-serif moderne)
-
-### **Composants**
-- Boutons avec états hover/focus
-- Cards avec ombres subtiles
-- Animations de transition fluides
-
-## 📱 Responsive Design
-
-- **Mobile**: 320px+
-- **Tablet**: 768px+
-- **Desktop**: 1024px+
-- **Large**: 1280px+
-
-## 🚀 Déploiement
-
-### **Frontend (Vercel/Netlify)**
-```bash
-cd frontend
-npm run build
-# Déployer le dossier dist/
+### Personnalisation du thème
+Modifier `frontend/tailwind.config.js` pour ajuster les couleurs :
+```javascript
+extend: {
+  colors: {
+    wood: { /* Vos couleurs boisées */ },
+    warm: { /* Vos couleurs chaudes */ }
+  }
+}
 ```
-
-### **Backend (Railway/Heroku)**
-```bash
-cd backend
-npm run build
-# Déployer avec start: "node dist/index.js"
-```
-
-## 📊 Métriques de Performance
-
-- **Lighthouse Score**: 90+ (cible)
-- **First Contentful Paint**: <1.5s
-- **Time to Interactive**: <3s
-- **Bundle Size**: <500KB
 
 ## 🤝 Contribution
 
 1. Fork le projet
-2. Créer une branche feature (`git checkout -b feature/nouvelle-fonctionnalite`)
-3. Commit (`git commit -m 'Ajouter nouvelle fonctionnalité'`)
-4. Push (`git push origin feature/nouvelle-fonctionnalite`)
+2. Créer une branche (`git checkout -b feature/AmazingFeature`)
+3. Commit les changements (`git commit -m 'Add AmazingFeature'`)
+4. Push vers la branche (`git push origin feature/AmazingFeature`)
 5. Ouvrir une Pull Request
 
 ## 📄 Licence
 
 Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
 
-## 👨‍💻 Auteur
+## 👥 Équipe
 
-**MVP développé pour Ô TOMO Sushi**  
-Restaurant Izakaya japonais - Saint-Maximin-la-Sainte-Baume
+- **Développement** : [Votre nom]
+- **Design** : Thème boisé moderne et élégant
+
+## 📞 Contact
+
+- **Email** : [votre.email@exemple.com]
+- **Site web** : [votre-site.com]
+
+---
+
+*Fait avec ❤️ pour les amateurs de sushi et de beau code*

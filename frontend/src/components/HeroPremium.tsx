@@ -1,171 +1,194 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowDown, Star } from 'lucide-react';
+import { ArrowDown } from 'lucide-react';
 
-interface HeroPremiumProps {
-  onOrderClick?: () => void;
-}
-
-const HeroPremium: React.FC<HeroPremiumProps> = ({ onOrderClick }) => {
+const HeroPremium: React.FC = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-wood-pattern overflow-hidden px-4 sm:px-6 lg:px-8 pt-28 sm:pt-36"
-      style={{
-        backgroundImage: `
-          linear-gradient(135deg, rgba(253, 251, 247, 0.9) 0%, rgba(248, 243, 233, 0.8) 50%, rgba(231, 201, 169, 0.9) 100%),
-          url('https://www.transparenttextures.com/patterns/light-wood.png')
-        `,
-        backgroundBlendMode: 'multiply',
-        backgroundAttachment: 'fixed',
-      }}
-    >
-      {/* Geometric Background Elements avec thème boisé */}
-      <div className="absolute inset-0">
-        <motion.div 
-          className="absolute top-20 right-4 sm:right-20 w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-gradient-to-br from-warm-200 to-warm-300 shadow-warm border-2 border-wood-300"
-          animate={{ 
-            y: [0, -20, 0],
-            scale: [1, 1.1, 1] 
-          }}
-          transition={{ 
-            duration: 8, 
-            repeat: Infinity, 
-            ease: "easeInOut" 
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-wood-50 via-wood-100 to-warm-100">
+      {/* Arrière-plan boisé chaleureux pour l'accueil */}
+      <div className="absolute inset-0 z-0">
+        {/* Texture bois principale */}
+        <div 
+          className="absolute inset-0 opacity-80"
+          style={{
+            backgroundImage: `
+              linear-gradient(135deg, rgba(139, 111, 71, 0.95) 0%, rgba(168, 107, 45, 0.85) 25%, rgba(212, 156, 87, 0.75) 50%, rgba(185, 122, 86, 0.85) 75%, rgba(139, 111, 71, 0.95) 100%),
+              url('https://www.transparenttextures.com/patterns/wood-pattern.png')
+            `,
+            backgroundBlendMode: 'multiply',
+            backgroundSize: '200px 200px, cover',
           }}
         />
-        <motion.div 
-          className="absolute bottom-32 left-4 sm:left-16 w-16 h-16 sm:w-24 sm:h-24 rounded-lg bg-gradient-to-br from-wood-700 to-wood-800 rotate-45 shadow-wood-lg border border-wood-600"
-          animate={{ 
-            rotate: [45, 135, 45],
-          }}
-          transition={{ 
-            duration: 12, 
-            repeat: Infinity, 
-            ease: "easeInOut" 
+        
+        {/* Overlay bois subtil */}
+        <div 
+          className="absolute inset-0 opacity-40"
+          style={{
+            backgroundImage: `
+              radial-gradient(circle at 30% 20%, rgba(168, 107, 45, 0.3) 0%, transparent 60%),
+              radial-gradient(circle at 70% 80%, rgba(139, 111, 71, 0.2) 0%, transparent 60%),
+              linear-gradient(45deg, rgba(212, 156, 87, 0.1) 0%, rgba(168, 107, 45, 0.15) 100%)
+            `,
           }}
         />
-        {/* Nouveaux éléments décoratifs boisés */}
-        <motion.div 
-          className="absolute top-1/3 left-8 w-12 h-12 rounded-full bg-gradient-to-r from-warm-400 to-warm-500 opacity-70"
-          animate={{ 
-            x: [0, 15, 0],
-            opacity: [0.7, 1, 0.7]
-          }}
-          transition={{ 
-            duration: 6, 
-            repeat: Infinity, 
-            ease: "easeInOut" 
+        
+        {/* Motif grain de bois */}
+        <div 
+          className="absolute inset-0 opacity-20"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%238b6f47' fill-opacity='0.4'%3E%3Cpath d='M0 40c13.3-13.3 26.7-13.3 40 0s26.7 13.3 40 0v40H0z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
           }}
         />
       </div>
 
-      <div className="container-max relative z-10">
-        <div className="max-w-4xl mx-auto text-center">
-          {/* Badge épuré avec thème boisé */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="inline-flex items-center space-x-2 bg-wood-50/90 border-2 border-wood-300 rounded-full px-3 py-2 sm:px-4 sm:py-2 mb-6 sm:mb-8 shadow-warm backdrop-blur-sm"
-          >
-            <Star className="w-3 h-3 sm:w-4 sm:h-4 text-warm-600 fill-current" />
-            <span className="text-xs sm:text-sm text-wood-700 font-medium">Authentique cuisine japonaise</span>
-          </motion.div>
-
-          {/* Titre épuré avec thème boisé */}
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-4xl sm:text-5xl md:text-7xl font-bold text-wood-gradient mb-4 sm:mb-6 tracking-tight px-4 drop-shadow-lg"
-            style={{ textShadow: '2px 2px 4px rgba(168, 107, 45, 0.3)' }}
-          >
-            Ô TOMO
-            <motion.span 
-              className="block text-xl sm:text-3xl md:text-4xl font-light text-wood-600 mt-2 font-japanese"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-            >
-              Sushi & Izakaya <span className="text-warm-700">寿司</span>
-            </motion.span>
-          </motion.h1>
-
-          {/* Description épurée avec thème boisé */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-base sm:text-lg text-wood-700 mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed px-4 font-medium"
-            style={{ textShadow: '1px 1px 2px rgba(168, 107, 45, 0.2)' }}
-          >
-            Découvrez l'art culinaire japonais dans un cadre chaleureux et moderne.
-            <br className="hidden sm:block" />
-            Une expérience gastronomique authentique à Saint-Maximin-la-Sainte-Baume.
-          </motion.p>
-
-          {/* CTA épuré avec thème boisé */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4"
-          >
-            <motion.button
-              className="btn-primary w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold text-base sm:text-lg"
-              onClick={onOrderClick}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Commander en ligne
-            </motion.button>
-            
-            <motion.button
-              className="btn-secondary w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold text-base sm:text-lg"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Réserver une table
-            </motion.button>
-          </motion.div>
-
-          {/* Stats épurées avec thème boisé */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            className="grid grid-cols-3 gap-4 sm:gap-8 mt-12 sm:mt-16 pt-8 sm:pt-16 border-t-2 border-wood-300 px-4"
-          >
-            <div className="text-center">
-              <div className="text-xl sm:text-2xl font-bold text-wood-800 mb-1 font-display">15+</div>
-              <div className="text-xs sm:text-sm text-wood-600 font-medium">Années d'expérience</div>
-            </div>
-            <div className="text-center">
-              <div className="text-xl sm:text-2xl font-bold text-wood-800 mb-1 font-display">5★</div>
-              <div className="text-xs sm:text-sm text-wood-600 font-medium">Note moyenne</div>
-            </div>
-            <div className="text-center">
-              <div className="text-xl sm:text-2xl font-bold text-wood-800 mb-1 font-display">500+</div>
-              <div className="text-xs sm:text-sm text-wood-600 font-medium">Clients satisfaits</div>
-            </div>
-          </motion.div>
-        </div>
+      {/* Éléments décoratifs boisés flottants */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          animate={{ 
+            rotate: 360,
+            x: [-20, 20, -20],
+            y: [-15, 15, -15]
+          }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          className="absolute top-1/4 left-1/6 w-6 h-6 rounded-full bg-gradient-to-r from-warm-400 to-wood-500 opacity-40 shadow-warm"
+        />
+        <motion.div
+          animate={{ 
+            rotate: -360,
+            x: [25, -25, 25],
+            y: [10, -10, 10]
+          }}
+          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+          className="absolute top-2/3 right-1/4 w-8 h-8 rounded-full bg-gradient-to-r from-wood-600 to-warm-500 opacity-30 shadow-wood"
+        />
+        <motion.div
+          animate={{ 
+            y: [-10, 10, -10],
+            rotate: [0, 180, 360]
+          }}
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute bottom-1/3 left-1/3 w-4 h-4 rounded-full bg-gradient-to-r from-warm-300 to-wood-400 opacity-50"
+        />
+        
+        <motion.div
+          animate={{
+            y: [-8, 8, -8],
+            opacity: [0.2, 0.4, 0.2]
+          }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-1/3 right-1/3 text-5xl font-japanese text-wood-600 opacity-25"
+        >
+          木
+        </motion.div>
+        <motion.div
+          animate={{
+            y: [12, -12, 12],
+            opacity: [0.3, 0.5, 0.3]
+          }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute bottom-1/4 left-1/5 text-4xl font-japanese text-warm-600 opacity-30"
+        >
+          温
+        </motion.div>
       </div>
 
-      {/* Scroll Indicator épuré avec thème boisé */}
+      {/* Contenu principal avec thème boisé */}
+      <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+        <motion.div
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          className="mb-8"
+        >
+          <span className="text-7xl sm:text-8xl lg:text-[10rem] font-japanese text-wood-600 opacity-30 block leading-none drop-shadow-lg">
+            玉
+          </span>
+        </motion.div>
+
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-6 font-display bg-gradient-to-r from-wood-800 via-warm-700 to-wood-600 bg-clip-text text-transparent"
+          style={{ textShadow: '3px 3px 6px rgba(139, 111, 71, 0.4)' }}
+        >
+          Ô TOMO
+          <motion.span 
+            className="block text-xl sm:text-3xl md:text-4xl font-light text-wood-700 mt-2 font-japanese"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+          >
+            Restaurant Japonais <span className="text-warm-600">寿司</span>
+          </motion.span>
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="text-lg sm:text-xl md:text-2xl text-wood-800 mb-8 leading-relaxed max-w-3xl mx-auto"
+          style={{ textShadow: '1px 1px 2px rgba(139, 111, 71, 0.2)' }}
+        >
+          <br />
+          <span className="text-warm-700 font-japanese text-base sm:text-lg mt-2 block opacity-90">
+            木の温もりの中で本格的な日本料理を
+          </span>
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+          className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center mb-12"
+        >
+          <motion.button
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.95 }}
+            className="bg-gradient-to-r from-wood-700 to-warm-600 hover:from-wood-800 hover:to-warm-700 text-white px-8 py-4 rounded-full font-medium text-lg shadow-wood-xl border border-wood-600 transition-all duration-300 min-w-[200px] font-display"
+            style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.3)' }}
+          >
+            Découvrir le Menu
+          </motion.button>
+          
+          <motion.button
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.95 }}
+            className="border-2 border-wood-600 text-wood-800 hover:bg-wood-100 hover:border-wood-700 px-8 py-4 rounded-full font-medium text-lg transition-all duration-300 min-w-[200px] backdrop-blur-sm bg-wood-50/80 shadow-wood font-display"
+          >
+            Réserver une Table
+          </motion.button>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 1 }}
+          className="text-center"
+        >
+          <p className="text-warm-700 font-japanese text-xl mb-4 opacity-80">
+            いらっしゃいませ
+          </p>
+          <p className="text-wood-700 text-sm opacity-90">
+            Bienvenue dans notre refuge boisé de saveurs japonaises
+          </p>
+        </motion.div>
+      </div>
+
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 1 }}
+        transition={{ delay: 1.2 }}
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
       >
-        <motion.div
+        <motion.button
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
-          className="flex flex-col items-center space-y-2 text-wood-600"
+          className="text-wood-600 hover:text-warm-600 transition-colors duration-300 bg-wood-100/80 backdrop-blur-sm p-3 rounded-full shadow-wood border border-wood-300 hover:border-warm-400"
+          onClick={() => document.getElementById('menu')?.scrollIntoView({ behavior: 'smooth' })}
         >
-          <span className="text-xs uppercase tracking-wider font-medium">Découvrir</span>
-          <ArrowDown className="w-4 h-4" />
-        </motion.div>
+          <ArrowDown className="w-6 h-6" />
+        </motion.button>
       </motion.div>
     </section>
   );
